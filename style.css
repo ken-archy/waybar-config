@@ -1,0 +1,100 @@
+@import "colors.css";
+
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 15px;
+  /* Required so the bar can shrink below GTK's default minimum height */
+  min-height: 0;
+}
+
+window#waybar {
+  /* Transparent bar => each module reads as its own floating rectangle.
+     Set this to @base if you prefer a solid bar behind the boxes. */
+  background-color: transparent;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+}
+
+tooltip {
+  background-color: @base;
+  border: 1px solid @mauve;
+  border-radius: 8px;
+}
+
+tooltip label {
+  color: @text;
+}
+
+/* Module groups stay transparent; the boxes come from each module below */
+.modules-left,
+.modules-center,
+.modules-right {
+  background-color: transparent;
+}
+
+/* ── Every module = its own rounded rectangle ───────────────── */
+#workspaces,
+#custom-cava,
+#window,
+#bluetooth,
+#language,
+#pulseaudio,
+#cpu,
+#temperature,
+#clock {
+  background-color: @surface0;
+  border-radius: 8px;
+  padding: 0 10px;
+  margin: 2px 1px;
+}
+
+/* ── Workspaces: only the active one is highlighted ─────────── */
+#workspaces {
+  padding: 0 4px;
+}
+
+#workspaces button {
+  padding: 0 7px;
+  margin: 2px 1px;
+  color: @overlay1;          /* inactive = dim */
+  background-color: transparent;
+  border: none;
+  border-radius: 6px;
+}
+
+#workspaces button:hover {
+  background-color: rgba(255, 255, 255, 0.10);
+  box-shadow: none;
+  text-shadow: none;
+}
+
+#workspaces button.active {
+  color: @base;
+  background-color: @mauve;   /* active = accent fill */
+}
+
+#workspaces button.urgent {
+  color: @base;
+  background-color: @red;
+}
+
+/* ── Per-module accent colors ───────────────────────────────── */
+#custom-cava  { color: @mauve; }
+#bluetooth   { color: @yellow; }
+#window      { color: @text; }
+#language    { color: @lavender; }
+#pulseaudio  { color: @maroon; }
+#cpu         { color: @peach; }
+#temperature { color: @sky; }
+#clock       { color: @flamingo; }
+
+#pulseaudio.muted {
+  color: @overlay0;
+}
+
+
+@keyframes blink {
+  to {
+    color: @base;
+  }
+}
