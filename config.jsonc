@@ -1,7 +1,7 @@
 {
   // ───────────────────────── Bar ─────────────────────────
   "position": "top",
-  "height": 20,
+  "height": 24,
   "margin-top": 1,
   "margin-left": 2,
   "margin-right": 2,
@@ -11,7 +11,8 @@
     "custom/cava"
   ],
   "modules-center": [
-    "hyprland/window"
+    "clock"
+
   ],
   "modules-right": [
     "hyprland/language",
@@ -19,7 +20,6 @@
     "cpu",
     "bluetooth",
     "temperature",
-    "clock"
   ],
 
   // ───────────────────────── Left ─────────────────────────
@@ -33,7 +33,7 @@
 	  "format-icons": {
       "active": "<span font='10'>󰮯</span>",
       "empty": "<span font='7'></span>",
-      "default": "󰊠"
+      "default": "<span font='10'>󰊠</span>",
 	  },
   },
 
@@ -101,7 +101,7 @@
   "temperature": {
     "interval": 10,
     "tooltip": true,
-    "hwmon-path": [ "/sys/class/hwmon/hwmon1/temp1_input" ],
+    "hwmon-path": [ "/sys/class/hwmon/hwmon2/temp1_input" ],
     "critical-threshold": 82,
     "format-critical": "{temperatureC}°C {icon}",
     "format": "{temperatureC}°C {icon}",

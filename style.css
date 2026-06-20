@@ -1,100 +1,139 @@
 @import "colors.css";
 
+/* @transparent нет в colors.css — задаём здесь */
+@define-color transparent rgba(0, 0, 0, 0);
+
 * {
-  font-family: "JetBrainsMono Nerd Font";
-  font-size: 15px;
-  /* Required so the bar can shrink below GTK's default minimum height */
-  min-height: 0;
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 15px;
+    min-height: 0;
 }
 
 window#waybar {
-  /* Transparent bar => each module reads as its own floating rectangle.
-     Set this to @base if you prefer a solid bar behind the boxes. */
-  background-color: transparent;
-  transition-property: background-color;
-  transition-duration: 0.5s;
+    background: transparent;
+    color: @on_surface;
 }
 
+/* -------------------- TOOLTIPS -------------------- */
 tooltip {
-  background-color: @base;
-  border: 1px solid @mauve;
-  border-radius: 8px;
+    background: @surface_container;
+    border: 1px solid @primary;
+    border-radius: 8px;
 }
-
 tooltip label {
-  color: @text;
+    color: @on_surface;
 }
 
-/* Module groups stay transparent; the boxes come from each module below */
+/* -------------------- MODULE GROUPS -------------------- */
 .modules-left,
 .modules-center,
 .modules-right {
-  background-color: transparent;
+    background: transparent;
 }
 
-/* ── Every module = its own rounded rectangle ───────────────── */
+/* -------------------- MODULE BOXES -------------------- */
 #workspaces,
 #custom-cava,
-#window,
 #bluetooth,
 #language,
 #pulseaudio,
 #cpu,
-#temperature,
+#temperature {
+    background: @surface_container;
+    border: 1px solid @outline_variant;
+    border-radius: 8px;
+    padding: 0 12px;
+    margin: 3px 2px;
+
+}
 #clock {
-  background-color: @surface0;
-  border-radius: 8px;
-  padding: 0 10px;
-  margin: 2px 1px;
+    background: @surface_container;
+    border: 1px solid @outline_variant;
+    border-radius: 8px;
+    padding: 0 18px;
+    margin: 3px 2px;
 }
 
-/* ── Workspaces: only the active one is highlighted ─────────── */
+/* -------------------- WORKSPACES -------------------- */
 #workspaces {
-  padding: 0 4px;
+    padding: 0 4px;
 }
-
 #workspaces button {
-  padding: 0 7px;
-  margin: 2px 1px;
-  color: @overlay1;          /* inactive = dim */
-  background-color: transparent;
-  border: none;
-  border-radius: 6px;
+    color: @on_surface_variant;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 0 8px;
+    margin: 2px;
+    min-height: 16px;
+    transition: padding 0.2s ease, background 0.2s ease, color 0.2s ease;
 }
-
 #workspaces button:hover {
-  background-color: rgba(255, 255, 255, 0.10);
-  box-shadow: none;
-  text-shadow: none;
+    background: @surface_container_high;
+    color: @on_surface;
+    box-shadow: none;
+    text-shadow: none;
 }
-
 #workspaces button.active {
-  color: @base;
-  background-color: @mauve;   /* active = accent fill */
+    background: @primary;
+    color: @on_primary;
+    padding: 0 16px;
 }
-
 #workspaces button.urgent {
-  color: @base;
-  background-color: @red;
+    background: @error;
+    color: @on_error;
 }
 
-/* ── Per-module accent colors ───────────────────────────────── */
-#custom-cava  { color: @mauve; }
-#bluetooth   { color: @yellow; }
-#window      { color: @text; }
-#language    { color: @lavender; }
-#pulseaudio  { color: @maroon; }
-#cpu         { color: @peach; }
-#temperature { color: @sky; }
-#clock       { color: @flamingo; }
+/* -------------------- WINDOW -------------------- */
+#window {
+    background: @surface_container_low;
+    color: @on_surface;
+}
 
+/* -------------------- MODULE COLORS -------------------- */
+#custom-cava {
+    color: @primary;
+}
+#bluetooth {
+    color: @secondary;
+}
+#language {
+    color: @primary;
+}
+#pulseaudio {
+    color: @tertiary;
+}
+#cpu {
+    color: @primary;
+}
+#temperature {
+    color: @error;
+}
+#clock {
+    background: @surface_container_high;
+    color: @tertiary;
+}
+
+/* -------------------- STATES -------------------- */
 #pulseaudio.muted {
-  color: @overlay0;
+    color: @outline;
+}
+#bluetooth.disabled,
+#bluetooth.off {
+    color: @outline;
+}
+#temperature.critical {
+    color: @error;
+    font-weight: bold;
 }
 
-
+/* -------------------- ANIMATIONS -------------------- */
 @keyframes blink {
-  to {
-    color: @base;
-  }
+    to {
+        opacity: 0.5;
+    }
+}
+#temperature.critical,
+#pulseaudio.muted {
+    animation: blink 1s infinite alternate;
 }
