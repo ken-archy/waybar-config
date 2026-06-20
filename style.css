@@ -14,6 +14,11 @@ window#waybar {
     color: @on_surface;
 }
 
+#custom-notification {
+    font-family: "JetBrainsMono Nerd Font";
+    color: @primary;
+}
+
 /* -------------------- TOOLTIPS -------------------- */
 tooltip {
     background: @surface_container;
@@ -33,6 +38,7 @@ tooltip label {
 
 /* -------------------- MODULE BOXES -------------------- */
 #workspaces,
+#custom-notification,
 #custom-cava,
 #bluetooth,
 #language,
